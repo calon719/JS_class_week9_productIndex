@@ -1,0 +1,22 @@
+// .recommendation-wall:active{
+//   cursor: grabbing;
+// // }
+.recommendation-wall::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.recommendation-card{
+  min-width: 350px;
+}
+.recommendation-card:not(:last-child){
+  margin-right: 30px;
+}
+
+
+// js 樣式
+header{
+  a[data-scroll="true"]{
+    @apply text-primary;
+  }
+}
