@@ -1,0 +1,20 @@
+.recommendation-wall::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.recommendation-card {
+  min-width: 350px;
+}
+
+.recommendation-card:not(:last-child) {
+  margin-right: 30px;
+}
+
+header a[data-scroll="true"] {
+  --tw-text-opacity: 1;
+  color: rgba(106, 51, 248, var(--tw-text-opacity));
+}
+
+/*# sourceMappingURL=index.css.map */
