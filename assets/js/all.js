@@ -127,17 +127,12 @@ function renderCartList() {
 
 function productFilter() {
   var category = categorySelector.value;
-  var filteredAry = [];
 
   if (category === '全部') {
     renderProductList(productsData);
   } else {
-    productsData.forEach(function (item) {
-      if (item.category == category) {
-        filteredAry.push(item);
-      }
-
-      ;
+    var filteredAry = productsData.filter(function (item) {
+      return item.category == category;
     });
     renderProductList(filteredAry);
   }
