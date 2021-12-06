@@ -20,7 +20,7 @@ header a[data-scroll="true"] {
 }
 
 [data-loading="true"] {
-  display: block;
+  display: flex;
 }
 
 [data-loading="false"] {
