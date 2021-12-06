@@ -9,7 +9,7 @@ var carts_path = "api/livejs/v1/customer/".concat(api_path, "/carts");
 var customOrder_path = "api/livejs/v1/customer/".concat(api_path, "/orders"); // DOM
 
 var categorySelector = document.querySelector('[name="categorySelector"]');
-var productList = document.querySelector('.productList');
+var productList = document.querySelector('ul[data-js="productList"]');
 var cartList = document.querySelector('.cartList');
 var sendOrderInfoBtn = document.querySelector('[data-js="sendOrderInfoBtn"'); // data
 
@@ -42,6 +42,11 @@ function getProductsData() {
     }
 
     ;
+  }).then(function () {
+    var loadingAnimation = document.querySelector('.productList-loading');
+    var productListDiv = document.querySelector('.product-list');
+    loadingAnimation.setAttribute('data-loading', false);
+    productListDiv.setAttribute('data-loading', true);
   });
 }
 

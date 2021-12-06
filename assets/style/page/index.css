@@ -1,3 +1,5 @@
+/* purgecss start ignore */
+
 .recommendation-wall::-webkit-scrollbar {
   display: none;
   scrollbar-width: none;
@@ -17,12 +19,20 @@ header a[data-scroll="true"] {
   color: rgba(106, 51, 248, var(--tw-text-opacity));
 }
 
-[data-cartMsg="false"] {
+[data-loading="true"] {
+  display: block;
+}
+
+[data-loading="false"] {
   display: none;
 }
 
 [data-cartMsg="true"] {
   display: table;
+}
+
+[data-cartMsg="false"] {
+  display: none;
 }
 
 [data-popUp="true"] {
@@ -32,5 +42,7 @@ header a[data-scroll="true"] {
 [data-popUp="false"] {
   display: none;
 }
+
+/* purgecss end ignore */
 
 /*# sourceMappingURL=index.css.map */
