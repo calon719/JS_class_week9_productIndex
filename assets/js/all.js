@@ -153,6 +153,7 @@ function addCart(e) {
   }
 
   ;
+  var btnProp = e.target.dataset.js;
   var id = e.target.dataset.id;
   var obj = {
     "data": {
@@ -164,7 +165,7 @@ function addCart(e) {
     getCartListData();
     productFilter(); // 不呼叫 renderProductList() 避免已篩選渲染的 product list 出錯
 
-    popUpSuccessMsg('addCartBtn');
+    popUpSuccessMsg(btnProp);
   })["catch"](function (err) {
     var errData = err.response.data;
 
@@ -226,7 +227,7 @@ function deleteCartProduct(e) {
 
 ;
 
-function sendOrderInfo() {
+function sendOrderInfo(e) {
   // 錯誤訊息初始化
   var spanAry = document.querySelectorAll("span[data-msg]");
   spanAry.forEach(function (el) {
@@ -294,9 +295,10 @@ function sendOrderInfo() {
         }
       }
     };
+    var btnProp = e.target.dataset.js;
     axios.post("".concat(baseUrl, "/").concat(customOrder_path), obj).then(function (res) {
       getCartListData();
-      popUpSuccessMsg('sendOrderInfoBtn');
+      popUpSuccessMsg(btnProp);
       var orderInputs = document.querySelectorAll('[data-js="orderInput"]');
       orderInputs.forEach(function (item) {
         item.value = '';
@@ -306,7 +308,10 @@ function sendOrderInfo() {
 
       if (errData.status === false) {
         console.log(err.response.data.message);
+        popUpSuccessMsg(btnProp);
       }
+
+      ;
     });
   }
 
@@ -351,18 +356,18 @@ function changeQuantity(e) {
 ; // 加入購物車、訂單資料成功送出提示視窗
 
 function popUpSuccessMsg(btnProp) {
-  var popUpMsg = document.querySelector('[data-js="popUpBlock"] p');
+  var popUpMsg = document.querySelector('[data-js="popUpMsg"]');
 
   if (btnProp === 'sendOrderInfoBtn') {
     if (cartsData.carts.length === 0) {
-      popUpMsg.innerHTML = "<i class=\"fas fa-times-circle fa-4x text-danger mb-4\"></i>\u8CFC\u7269\u8ECA\u5167\u6C92\u6709\u6771\u897F";
+      popUpMsg.innerHTML = "<i class=\"fas fa-times-circle fa-4x text-danger mb-4\"></i> <p class=\"text-2xl\">\u8CFC\u7269\u8ECA\u5167\u6C92\u6709\u6771\u897F</p>";
     } else {
-      popUpMsg.innerHTML = "<i class=\"fas fa-check-circle fa-4x text-success mb-4\"></i>\u8A02\u55AE\u6210\u529F\u9001\u51FA";
+      popUpMsg.innerHTML = "<i class=\"fas fa-check-circle fa-4x text-success mb-4\"></i> <p class=\"text-2xl\">\u8A02\u55AE\u6210\u529F\u9001\u51FA</p>";
     }
 
     ;
   } else if (btnProp === 'addCartBtn') {
-    popUpMsg.innerHTML = "<i class=\"fas fa-check-circle fa-4x text-success mb-4\"></i>\u6210\u529F\u52A0\u5165\u8CFC\u7269\u8ECA";
+    popUpMsg.innerHTML = "<i class=\"fas fa-check-circle fa-4x text-success mb-4\"></i> <p class=\"text-2xl\">\u6210\u529F\u52A0\u5165\u8CFC\u7269\u8ECA</p>";
   }
 
   ;
