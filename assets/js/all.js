@@ -354,11 +354,18 @@ function popUpSuccessMsg(btnProp) {
   var popUpMsg = document.querySelector('[data-js="popUpBlock"] p');
 
   if (btnProp === 'sendOrderInfoBtn') {
-    popUpMsg.textContent = '訂單成功送出';
+    if (cartsData.carts.length === 0) {
+      popUpMsg.innerHTML = "<i class=\"fas fa-times-circle fa-4x text-danger mb-4\"></i>\u8CFC\u7269\u8ECA\u5167\u6C92\u6709\u6771\u897F";
+    } else {
+      popUpMsg.innerHTML = "<i class=\"fas fa-check-circle fa-4x text-success mb-4\"></i>\u8A02\u55AE\u6210\u529F\u9001\u51FA";
+    }
+
+    ;
   } else if (btnProp === 'addCartBtn') {
-    popUpMsg.textContent = '成功加入購物車';
+    popUpMsg.innerHTML = "<i class=\"fas fa-check-circle fa-4x text-success mb-4\"></i>\u6210\u529F\u52A0\u5165\u8CFC\u7269\u8ECA";
   }
 
+  ;
   var popUp = document.querySelector('[data-js="popUpBlock"]');
   var styleOpacity = parseFloat(popUp.style.opacity);
   popUp.setAttribute('data-popUp', true);
