@@ -17,4 +17,20 @@ header a[data-scroll="true"] {
   color: rgba(106, 51, 248, var(--tw-text-opacity));
 }
 
+[data-cartMsg="false"] {
+  display: none;
+}
+
+[data-cartMsg="true"] {
+  display: table;
+}
+
+[data-popUp="true"] {
+  display: flex;
+}
+
+[data-popUp="false"] {
+  display: none;
+}
+
 /*# sourceMappingURL=index.css.map */

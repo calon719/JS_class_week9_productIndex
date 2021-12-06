@@ -23,7 +23,7 @@
 <body>
 
   
-<header class="bg-white py-9 border-b-40 sticky top-0 z-50">
+<header class="bg-white py-9 border-b-40 sticky top-0 z-10">
   <div class="container">
     <nav class="flex justify-between">
       <h1 class="text-2xl font-bold hover:text-primary transform hover:scale-105 transition-all"><a
@@ -90,31 +90,31 @@
       <tbody>
         <tr class="border-b border-gray-300">
           <td class="text-2xl py-3">可單人自行組裝</td>
-          <td class="py-3 text-center text-success"><i class="fas fa-check fa-2x"></i></td>
+          <td class="py-3 text-center text-warning"><i class="fas fa-check fa-2x"></i></td>
           <td class="py-3 text-center text-gray-500">不一定</td>
           <td class="py-3 text-center text-gray-500"></td>
         </tr>
         <tr class="border-b border-gray-300">
           <td class="text-2xl py-3">可多次重複拆裝</td>
-          <td class="py-3 text-center text-success"><i class="fas fa-check fa-2x"></i></td>
+          <td class="py-3 text-center text-warning"><i class="fas fa-check fa-2x"></i></td>
           <td class="py-3 text-center text-gray-500"></td>
           <td class="py-3 text-center text-gray-500"></td>
         </tr>
         <tr class="border-b border-gray-300">
           <td class="text-2xl py-3">床墊規格彈性大</td>
-          <td class="py-3 text-center text-success"><i class="fas fa-check fa-2x"></i></td>
+          <td class="py-3 text-center text-warning"><i class="fas fa-check fa-2x"></i></td>
           <td class="py-3 text-center text-gray-500">不一定</td>
           <td class="py-3 text-center text-gray-500">不一定</td>
         </tr>
         <tr class="border-b border-gray-300">
           <td class="text-2xl py-3">材質可長久使用</td>
-          <td class="py-3 text-center text-success"><i class="fas fa-check fa-2x"></i></td>
+          <td class="py-3 text-center text-warning"><i class="fas fa-check fa-2x"></i></td>
           <td class="py-3 text-center text-gray-500"></td>
-          <td class="py-3 text-center text-success"><i class="fas fa-check fa-2x"></i></td>
+          <td class="py-3 text-center text-warning"><i class="fas fa-check fa-2x"></i></td>
         </tr>
         <tr class="border-b border-gray-300">
           <td class="text-2xl py-3">小客車即可搬運</td>
-          <td class="py-3 text-center text-success"><i class="fas fa-check fa-2x"></i></td>
+          <td class="py-3 text-center text-warning"><i class="fas fa-check fa-2x"></i></td>
           <td class="py-3 text-center text-gray-500"></td>
           <td class="py-3 text-center text-gray-500"></td>
         </tr>
@@ -330,7 +330,8 @@
 <section class="cart bg-gray-100 pt-12 pb-20">
   <div class="container flex flex-col items-center">
     <h3 class="text-3xl mb-8">我的購物車</h3>
-    <table class="w-10/12 mb-5">
+    <p class="text-center text-lg py-20" data-js="cartMsg" data-cartMsg="true">尚未將產品加入購物車內</p>
+    <table class="w-10/12 mb-5" data-js="cartMsg" data-cartMsg="false">
       <thead>
         <tr class="text-lg text-left">
           <th width="40%" class="font-normal">品項</th>
@@ -351,8 +352,8 @@
     <form class="w-87 flex flex-col items-center" data-js="orderForm">
       <div class="mb-2 w-full">
         <label for="customerName">姓名</label>
-        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="text" name="customerName"
-          id="customerName" placeholder="請輸入姓名">
+        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="text" data-js="orderInput"
+          name="customerName" id="customerName" placeholder="請輸入姓名">
         <span class="invisible text-danger" data-msg="customerName">
           <i class="fas fa-exclamation-circle"></i>
           必填
@@ -360,8 +361,8 @@
       </div>
       <div class="mb-2 w-full">
         <label for="customerTel">電話</label>
-        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="tel" name="customerTel"
-          id="customerTel" placeholder="請輸入聯絡電話">
+        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="tel" data-js="orderInput"
+          name="customerTel" id="customerTel" placeholder="請輸入聯絡電話">
         <span class="invisible text-danger" data-msg="customerTel">
           <i class="fas fa-exclamation-circle"></i>
           必填
@@ -369,8 +370,8 @@
       </div>
       <div class="mb-2 w-full">
         <label for="customerEmail">Email</label>
-        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="email" name="customerEmail"
-          id="customerEmail" placeholder="請輸入 Email">
+        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="email" data-js="orderInput"
+          name="customerEmail" id="customerEmail" placeholder="請輸入 Email">
         <span class="invisible text-danger" data-msg="customerEmail">
           <i class="fas fa-exclamation-circle"></i>
           必填
@@ -378,8 +379,8 @@
       </div>
       <div class="mb-2 w-full">
         <label for="customerAdd">寄送地址</label>
-        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="text" name="customerAdd"
-          id="customerAdd" placeholder="請輸入寄送地址">
+        <input class="border border-gray-400 rounded w-full mt-1.5 py-2 px-3" type="text" data-js="orderInput"
+          name="customerAdd" id="customerAdd" placeholder="請輸入寄送地址">
         <span class="invisible text-danger" data-msg="customerAdd">
           <i class="fas fa-exclamation-circle"></i>
           必填
@@ -400,6 +401,26 @@
     </form>
   </div>
 </section>
+
+<div class="fixed top-0 bottom-0 right-0 left-0 z-50 flex justify-center items-center" style="opacity: 0;"
+  data-popUp="false" data-js="popUpBlock">
+  <div class="flex flex-col justify-center items-center w-72 h-52 bg-white border border-gray-400 rounded-2xl">
+    <i class="fas fa-check-circle fa-4x text-success mb-4"></i>
+    <p class="text-2xl">訂單送出成功</p>
+  </div>
+</div>
+
+<div class="fixed z-50 top-0 bottom-0 right-0 left-0 bg-opacity-50 bg-dark flex justify-center items-center"
+  data-popUp="false" data-js="doubleCheckpopUp">
+  <div class="bg-white border border-gray-400 rounded-lg p-10 pb-6">
+    <p class="mr-16">確定要刪除購物車全部的商品嗎？</p>
+    <div class="flex justify-end mt-8">
+      <button class="mr-2 py-2 px-4 rounded-lg bg-gray-400 text-white hover:opacity-75"
+        data-dblCheckBtn="cancel">取消</button>
+      <button class=" py-2 px-4 rounded-lg bg-danger text-white hover:opacity-75" data-dblCheckBtn="delete">刪除</button>
+    </div>
+  </div>
+</div>
 
 <script>
   const headerHeight = document.querySelector('header').offsetHeight;
@@ -482,6 +503,7 @@
     // Attach the handler
     recommendationWall.addEventListener('mousedown', mouseDownHandler);
   });
+
 </script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
