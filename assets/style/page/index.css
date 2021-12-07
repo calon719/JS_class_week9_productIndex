@@ -1,5 +1,13 @@
+/* purgecss start ignore */
+
 .material-icons.text-4xl {
   font-size: 2rem;
+}
+
+@media lg {
+  .material-icons.lg\:hidden {
+    display: none;
+  }
 }
 
 .recommendation-wall::-webkit-scrollbar {
@@ -54,5 +62,7 @@ header a[data-scroll="true"] {
 [data-popUp="false"] {
   display: none;
 }
+
+/* purgecss end ignore */
 
 /*# sourceMappingURL=index.css.map */
