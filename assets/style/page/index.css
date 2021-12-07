@@ -1,4 +1,6 @@
-/* purgecss start ignore */
+.material-icons.text-4xl {
+  font-size: 2rem;
+}
 
 .recommendation-wall::-webkit-scrollbar {
   display: none;
@@ -17,6 +19,16 @@
 header a[data-scroll="true"] {
   --tw-text-opacity: 1;
   color: rgba(106, 51, 248, var(--tw-text-opacity));
+}
+
+[data-topMenu-burger="show"] {
+  --tw-text-opacity: 1;
+  color: rgba(106, 51, 248, var(--tw-text-opacity));
+}
+
+[data-topMenu-burger="close"] {
+  --tw-text-opacity: 1;
+  color: rgba(0, 0, 0, var(--tw-text-opacity));
 }
 
 [data-loading="true"] {
@@ -42,7 +54,5 @@ header a[data-scroll="true"] {
 [data-popUp="false"] {
   display: none;
 }
-
-/* purgecss end ignore */
 
 /*# sourceMappingURL=index.css.map */
