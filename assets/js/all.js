@@ -249,11 +249,11 @@ function sendOrderInfo(e) {
       format: {
         pattern: '[0-9]+',
         flags: 'i',
-        message: '^聯絡電話格式不正確'
+        message: '^請勿輸入數字以外的文字'
       },
       length: {
         minimum: 9,
-        message: '^聯絡電話格式不正確'
+        message: '^號碼不可以少於 9 碼，室內電話請輸入區號'
       }
     },
     customerEmail: {
