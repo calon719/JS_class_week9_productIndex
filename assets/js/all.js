@@ -11,7 +11,8 @@ var customOrder_path = "api/livejs/v1/customer/".concat(api_path, "/orders"); //
 var categorySelector = document.querySelector('[name="categorySelector"]');
 var productList = document.querySelector('ul[data-js="productList"]');
 var cartList = document.querySelector('.cartList');
-var sendOrderInfoBtn = document.querySelector('[data-js="sendOrderInfoBtn"'); // data
+var sendOrderInfoBtn = document.querySelector('[data-js="sendOrderInfoBtn"');
+var loadingFullScreenDiv = document.querySelector('[data-js="loading-fullScreen"]'); // data
 
 var productsData;
 var cartsData; // event
@@ -155,6 +156,7 @@ function addCart(e) {
       "quantity": 1
     }
   };
+  loadingFullScreenDiv.setAttribute('data-loading', 'show');
   axios.post("".concat(baseUrl, "/").concat(carts_path), obj).then(function (res) {
     getCartListData();
     productFilter(); // 不呼叫 renderProductList() 避免已篩選渲染的 product list 出錯
@@ -166,6 +168,8 @@ function addCart(e) {
     if (errData.status === false) {
       console.log(err.response.data.message);
     }
+  }).then(function () {
+    loadingFullScreenDiv.setAttribute('data-loading', 'hidden');
   });
 }
 
@@ -205,6 +209,7 @@ function deleteCartProduct(e) {
   } else {
     // 刪除購物車單一商品
     var id = e.target.dataset.id;
+    loadingFullScreenDiv.setAttribute('data-loading', 'show');
     axios["delete"]("".concat(baseUrl, "/").concat(carts_path, "/").concat(id)).then(function (res) {
       getCartListData();
     })["catch"](function (err) {
@@ -213,6 +218,8 @@ function deleteCartProduct(e) {
       if (errData.status === false) {
         console.log(err.response.data.message);
       }
+    }).then(function () {
+      loadingFullScreenDiv.setAttribute('data-loading', 'hidden');
     });
   }
 
@@ -225,7 +232,7 @@ function sendOrderInfo(e) {
   // 錯誤訊息初始化
   var spanAry = document.querySelectorAll("span[data-msg]");
   spanAry.forEach(function (el) {
-    el.setAttribute('class', 'invisible text-danger');
+    el.style.visibility = 'hidden';
   }); // 表單驗證
 
   var form = document.querySelector('[data-js="orderForm"]');
@@ -270,7 +277,7 @@ function sendOrderInfo(e) {
     keys.forEach(function (key) {
       var el = document.querySelector("[data-msg=".concat(key, "]"));
       el.innerHTML = "<i class=\"fas fa-exclamation-circle mr-1\"></i>".concat(errors[key][0]);
-      el.classList.toggle('invisible');
+      el.style.visibility = 'visible';
     });
   } else {
     var nameValue = document.querySelector('#customerName').value;
@@ -290,6 +297,7 @@ function sendOrderInfo(e) {
       }
     };
     var btnProp = e.target.dataset.js;
+    loadingFullScreenDiv.setAttribute('data-loading', 'show');
     axios.post("".concat(baseUrl, "/").concat(customOrder_path), obj).then(function (res) {
       getCartListData();
       popUpSuccessMsg(btnProp);
@@ -306,6 +314,8 @@ function sendOrderInfo(e) {
       }
 
       ;
+    }).then(function () {
+      loadingFullScreenDiv.setAttribute('data-loading', 'hidden');
     });
   }
 
@@ -335,6 +345,7 @@ function changeQuantity(e) {
       "quantity": Number(value)
     }
   };
+  loadingFullScreenDiv.setAttribute('data-loading', 'show');
   axios.patch("".concat(baseUrl, "/").concat(carts_path), obj).then(function (res) {
     getCartListData();
   })["catch"](function (err) {
@@ -345,6 +356,8 @@ function changeQuantity(e) {
     }
 
     ;
+  }).then(function () {
+    loadingFullScreenDiv.setAttribute('data-loading', 'hidden');
   });
 }
 
