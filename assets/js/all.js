@@ -9,19 +9,19 @@ var carts_path = "api/livejs/v1/customer/".concat(api_path, "/carts");
 var customOrder_path = "api/livejs/v1/customer/".concat(api_path, "/orders"); // DOM
 
 var categorySelector = document.querySelector('[name="categorySelector"]');
-var productList = document.querySelector('ul[data-js="productList"]');
 var cartList = document.querySelector('.cartList');
-var sendOrderInfoBtn = document.querySelector('[data-js="sendOrderInfoBtn"');
-var loadingFullScreenDiv = document.querySelector('[data-js="loading-fullScreen"]'); // data
+var loadingFullScreenDiv = document.querySelector('[data-js="loading-fullScreen"]');
+var productList = document.querySelector('ul[data-js="productList"]');
+var sendOrderInfoBtn = document.querySelector('[data-js="sendOrderInfoBtn"'); // data
 
-var productsData;
-var cartsData; // event
+var cartsData = [];
+var productsData = []; // event
 
 categorySelector.addEventListener('change', productFilter);
-productList.addEventListener('click', addCart);
 cartList.addEventListener('click', deleteCartProduct);
-sendOrderInfoBtn.addEventListener('click', sendOrderInfo);
 cartList.addEventListener('change', changeQuantity);
+productList.addEventListener('click', addCart);
+sendOrderInfoBtn.addEventListener('click', sendOrderInfo);
 init();
 
 function init() {
@@ -329,8 +329,8 @@ function changeQuantity(e) {
   var id = e.target.dataset.id;
   var product = cartsData.carts.filter(function (item) {
     return item.id == id;
-  });
-  var quantityNotChanged = product[0].quantity == value; // 判斷數量有沒有改變
+  })[0];
+  var quantityNotChanged = product.quantity == value; // 判斷數量有沒有改變
 
   var notNum = value.match(/[^0-9]/); // 除了數字以外的字會回傳陣列
 
