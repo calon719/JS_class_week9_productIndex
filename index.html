@@ -488,19 +488,18 @@
 </div>
 
 <script>
-  const headerHeight = document.querySelector('header').offsetHeight;
-
   // RWD top menu
   const burgerBtn = document.querySelector('[data-js="topMenuBurger"');
   const topMenu = document.querySelector('[data-js="topMenu"]');
   const topMenuChildren = document.querySelectorAll('[data-js="topMenu"] li');
-  topMenu.style.top = `${headerHeight}px`;
-  let topMenuHeight = 0;
-  topMenuChildren.forEach(function (el) {
-    topMenuHeight += el.offsetHeight;
-  })
 
   burgerBtn.addEventListener('click', function (e) {
+    const headerHeight = document.querySelector('header').offsetHeight;
+    topMenu.style.top = `${headerHeight}px`;
+    let topMenuHeight = 0;
+    topMenuChildren.forEach(function (el) {
+      topMenuHeight += el.offsetHeight;
+    })
     let attr = e.target.getAttribute('data-topMenu-burger');
     if (attr === 'close') {
       burgerBtn.setAttribute('data-topMenu-burger', 'show');
@@ -517,9 +516,8 @@
 
   function jumpToBlock(e) {
     e.preventDefault();
-    console.log()
     if (e.target.nodeName !== 'A' || e.target.dataset.scroll == undefined) { return };
-
+    const headerHeight = document.querySelector('header').offsetHeight;
     let targetEl = document.querySelector(e.target.getAttribute('href'));
     let targetPos = targetEl.offsetTop - headerHeight;
 
@@ -533,6 +531,7 @@
   window.addEventListener('scroll', function () {
     let scrollPos = window.pageYOffset;
 
+    const headerHeight = document.querySelector('header').offsetHeight;
     const scrollEl = document.querySelectorAll('[data-js="scroll"]');
     const scrollActiveEl = document.querySelectorAll('[data-scroll]');
 
