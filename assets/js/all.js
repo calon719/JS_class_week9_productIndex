@@ -51,9 +51,8 @@ function getProductsData() {
 ;
 
 function renderCategorySelector() {
-  var categoryAry = [];
-  productsData.forEach(function (item) {
-    categoryAry.push(item.category);
+  var categoryAry = productsData.map(function (item) {
+    return item.category;
   });
   categoryAry = categoryAry.filter(function (item, index, ary) {
     return ary.indexOf(item) == index;
@@ -322,9 +321,10 @@ function changeQuantity(e) {
     return item.id == id;
   });
   var quantityNotChanged = product[0].quantity == value; // 判斷數量有沒有改變
-  // 最後一個判斷條件 不可以帶有小數點
 
-  if (e.target.dataset.js !== 'quantityInput' || isNaN(value) || quantityNotChanged || value - Math.round(value) !== 0) {
+  var notNum = value.match(/[^0-9]/); // 除了數字以外的字會回傳陣列
+
+  if (e.target.dataset.js !== 'quantityInput' || quantityNotChanged || notNum) {
     return;
   }
 
