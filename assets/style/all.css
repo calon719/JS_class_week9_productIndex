@@ -1388,7 +1388,7 @@ body {
   margin-right: 30px;
 }
 
-header a[data-scroll="true"] {
+[data-scroll="active"] {
   --tw-text-opacity: 1;
   color: rgba(106, 51, 248, var(--tw-text-opacity));
 }
@@ -1398,32 +1398,32 @@ header a[data-scroll="true"] {
   color: rgba(106, 51, 248, var(--tw-text-opacity));
 }
 
-[data-topMenu-burger="close"] {
+[data-topMenu-burger="hidden"] {
   --tw-text-opacity: 1;
   color: rgba(0, 0, 0, var(--tw-text-opacity));
 }
 
-[data-loading="true"] {
+[data-loading="show"] {
   display: flex;
 }
 
-[data-loading="false"] {
+[data-loading="hidden"] {
   display: none;
 }
 
-[data-cartMsg="true"] {
+[data-cartMsg="show"] {
   display: table;
 }
 
-[data-cartMsg="false"] {
+[data-cartMsg="hidden"] {
   display: none;
 }
 
-[data-popUp="true"] {
+[data-popUp="show"] {
   display: flex;
 }
 
-[data-popUp="false"] {
+[data-popUp="hidden"] {
   display: none;
 }
 

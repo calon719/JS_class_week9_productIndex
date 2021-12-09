@@ -44,7 +44,7 @@ function getProductsData() {
     ;
   }).then(function () {
     var loadingAnimation = document.querySelector('.productList-loading');
-    loadingAnimation.setAttribute('data-loading', false);
+    loadingAnimation.setAttribute('data-loading', 'hidden');
   });
 }
 
@@ -90,11 +90,11 @@ function getCartListData() {
     var cartTable = document.querySelector('table[data-js="cartMsg"]');
 
     if (cartsData.carts.length === 0) {
-      cartMsg.setAttribute('data-cartMsg', true);
-      cartTable.setAttribute('data-cartMsg', false);
+      cartMsg.setAttribute('data-cartMsg', 'show');
+      cartTable.setAttribute('data-cartMsg', 'hidden');
     } else {
-      cartMsg.setAttribute('data-cartMsg', false);
-      cartTable.setAttribute('data-cartMsg', true);
+      cartMsg.setAttribute('data-cartMsg', 'hidden');
+      cartTable.setAttribute('data-cartMsg', 'show');
       renderCartList();
     }
   })["catch"](function (err) {
@@ -105,7 +105,7 @@ function getCartListData() {
     }
   }).then(function () {
     var loadingAnimation = document.querySelector('.cart-loading');
-    loadingAnimation.setAttribute('data-loading', false);
+    loadingAnimation.setAttribute('data-loading', 'hidden');
   });
 }
 
@@ -178,13 +178,13 @@ function deleteCartProduct(e) {
   } else if (e.target.dataset.js === 'deleteAllProductsBtn') {
     // 刪除購物車全部商品
     var popUp = document.querySelector('[data-js="doubleCheckpopUp"]');
-    popUp.setAttribute('data-popUp', true);
+    popUp.setAttribute('data-popUp', 'show');
     popUp.addEventListener('click', function (e) {
       var btnProp = e.target.getAttribute('data-dblCheckBtn'); // double check
 
       if (btnProp === 'cancel' || Object.is(popUp, e.target)) {
         // 按取消或非訊息視窗時隱藏 double check div
-        popUp.setAttribute('data-popUp', false);
+        popUp.setAttribute('data-popUp', 'hidden');
       } else if (btnProp === 'delete') {
         axios["delete"]("".concat(baseUrl, "/").concat(carts_path)).then(function (res) {
           getCartListData();
@@ -197,7 +197,7 @@ function deleteCartProduct(e) {
 
           ;
         }).then(function () {
-          popUp.setAttribute('data-popUp', false);
+          popUp.setAttribute('data-popUp', 'hidden');
         });
       }
 
@@ -368,7 +368,7 @@ function popUpSuccessMsg(btnProp) {
   ;
   var popUp = document.querySelector('[data-js="popUpBlock"]');
   var styleOpacity = parseFloat(popUp.style.opacity);
-  popUp.setAttribute('data-popUp', true);
+  popUp.setAttribute('data-popUp', 'show');
   var fadeInBlock = window.setInterval(function () {
     // div 逐漸浮出
     if (styleOpacity < 10) {
@@ -383,7 +383,7 @@ function popUpSuccessMsg(btnProp) {
           styleOpacity -= 0.5;
           popUp.style.opacity = styleOpacity;
         } else {
-          popUp.setAttribute('data-popUp', false);
+          popUp.setAttribute('data-popUp', 'hidden');
           window.clearInterval(fadeOutBlock);
         }
 

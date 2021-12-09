@@ -33,16 +33,16 @@
       </a>
       <ul class="navbar hidden lg:flex text-xl">
         <li class="mr-12">
-          <a class="hover:text-primary transition-all duration-500" href="#advantage" data-scroll="false">床墊優勢</a>
+          <a class="hover:text-primary transition-all duration-500" href="#advantage" data-scroll="hidden">床墊優勢</a>
         </li>
         <li class="mr-12">
-          <a class="hover:text-primary transition-all duration-500" href="#recommendation" data-scroll="false">好評推薦</a>
+          <a class="hover:text-primary transition-all duration-500" href="#recommendation" data-scroll="hidden">好評推薦</a>
         </li>
         <li class="mr-12">
-          <a class="hover:text-primary transition-all duration-500" href="#transport" data-scroll="false">運送方式</a>
+          <a class="hover:text-primary transition-all duration-500" href="#transport" data-scroll="hidden">運送方式</a>
         </li>
         <li>
-          <a class="hover:text-primary transition-all duration-500" href="#orderInfo" data-scroll="false">立即預訂</a>
+          <a class="hover:text-primary transition-all duration-500" href="#orderInfo" data-scroll="hidden">立即預訂</a>
         </li>
       </ul>
 
@@ -51,19 +51,19 @@
         class="navbar h-0 text-center text-xl bg-white absolute right-0 left-0 overflow-hidden transition-all duration-500"
         data-js="topMenu">
         <li class="pt-8 pb-4">
-          <a class="hover:text-primary transition-all duration-500" href="#advantage" data-scroll="false">床墊優勢</a>
+          <a class="hover:text-primary transition-all duration-500" href="#advantage" data-scroll="hidden">床墊優勢</a>
         </li>
         <li class="pb-4">
-          <a class="hover:text-primary transition-all duration-500" href="#recommendation" data-scroll="false">好評推薦</a>
+          <a class="hover:text-primary transition-all duration-500" href="#recommendation" data-scroll="hidden">好評推薦</a>
         </li>
         <li class="pb-4">
-          <a class="hover:text-primary transition-all duration-500" href="#transport" data-scroll="false">運送方式</a>
+          <a class="hover:text-primary transition-all duration-500" href="#transport" data-scroll="hidden">運送方式</a>
         </li>
         <li class="pb-8">
-          <a class="hover:text-primary transition-all duration-500" href="#orderInfo" data-scroll="false">立即預訂</a>
+          <a class="hover:text-primary transition-all duration-500" href="#orderInfo" data-scroll="hidden">立即預訂</a>
         </li>
       </ul>
-      <a class="material-icons text-4xl pt-1 lg:hidden" data-js="topMenuBurger" data-topMenu-burger="close">
+      <a class="material-icons text-4xl pt-1 lg:hidden" data-js="topMenuBurger" data-topMenu-burger="hidden">
         menu
       </a>
     </nav>
@@ -368,7 +368,7 @@
       class="w-full sm:w-1/2 md:w-5/12 lg:w-3/12 bg-white text-gray-400 border border-gray-200 rounded py-2 px-3 mb-8"
       name="categorySelector">
     </select>
-    <div class="productList-loading justify-center w-full py-12" data-loading="true">
+    <div class="productList-loading justify-center w-full py-12" data-loading="show">
       <div class="lds-ring">
         <div></div>
         <div></div>
@@ -385,7 +385,7 @@
 <section class="cart bg-gray-100 pt-12 pb-20" data-js="cartDiv">
   <div class="container flex flex-col items-center">
     <h3 class="text-3xl mb-8">我的購物車</h3>
-    <div class="cart-loading justify-center py-12" data-loading="true">
+    <div class="cart-loading justify-center py-12" data-loading="show">
       <div class="lds-ring">
         <div></div>
         <div></div>
@@ -393,10 +393,10 @@
         <div></div>
       </div>
     </div>
-    <p class="text-center text-lg py-20" data-js="cartMsg" data-cartMsg="false" data-loading="false">尚未將產品加入購物車內</p>
+    <p class="text-center text-lg py-20" data-js="cartMsg" data-cartMsg="hidden" data-loading="hidden">尚未將產品加入購物車內</p>
     <div class="w-full overflow-x-auto">
       <div class="w-208 mx-auto">
-        <table class="w-full mb-5" data-js="cartMsg" data-cartMsg="false" data-loading="false">
+        <table class="w-full mb-5" data-js="cartMsg" data-cartMsg="hidden" data-loading="hidden">
           <thead>
             <tr class="text-lg text-left">
               <th width="40%" class="font-normal">品項</th>
@@ -470,13 +470,13 @@
 </section>
 
 <div class="fixed top-0 bottom-0 right-0 left-0 z-50 flex justify-center items-center" style="opacity: 0;"
-  data-popUp="false" data-js="popUpBlock">
+  data-popUp="hidden" data-js="popUpBlock">
   <div class="flex flex-col justify-center items-center w-72 h-52 bg-white border border-gray-400 rounded-2xl"
     data-js="popUpMsg"></div>
 </div>
 
 <div class="fixed z-50 top-0 bottom-0 right-0 left-0 bg-opacity-50 bg-dark flex justify-center items-center"
-  data-popUp="false" data-js="doubleCheckpopUp">
+  data-popUp="hidden" data-js="doubleCheckpopUp">
   <div class="bg-white border border-gray-400 rounded-lg p-10 pb-6 max-w-36">
     <p>確定要刪除購物車全部的商品嗎？</p>
     <div class="flex justify-end mt-8">
@@ -501,7 +501,7 @@
       topMenuHeight += el.offsetHeight;
     })
     let attr = e.target.getAttribute('data-topMenu-burger');
-    if (attr === 'close') {
+    if (attr === 'hidden') {
       burgerBtn.setAttribute('data-topMenu-burger', 'show');
       topMenu.style.height = `${topMenuHeight}px`;
     } else {
@@ -536,7 +536,7 @@
     const scrollActiveEl = document.querySelectorAll('[data-scroll]');
 
     scrollActiveEl.forEach(function (el) {
-      el.dataset.scroll = false;
+      el.dataset.scroll = hidden;
     });
 
     scrollEl.forEach(function (el) {
@@ -548,7 +548,7 @@
         scrollActiveEl.forEach(function (el) {
           let targetNav = el.getAttribute('href');
           if (targetNav == `#${target}`) {
-            el.dataset.scroll = 'true';
+            el.dataset.scroll = 'active';
           };
         });
       };
