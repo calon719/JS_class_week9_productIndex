@@ -168,6 +168,8 @@ function addCart(e) {
     if (errData.status === false) {
       console.log(err.response.data.message);
     }
+
+    ;
   }).then(function () {
     loadingFullScreenDiv.setAttribute('data-loading', 'hidden');
   });
@@ -332,9 +334,9 @@ function changeQuantity(e) {
   })[0];
   var quantityNotChanged = product.quantity == value; // 判斷數量有沒有改變
 
-  var notNum = value.match(/[^0-9]/); // 除了數字以外的字會回傳陣列
+  var isNum = value.match(/[0-9]/); // 除了數字以外的字會回傳陣列
 
-  if (e.target.dataset.js !== 'quantityInput' || quantityNotChanged || notNum) {
+  if (e.target.dataset.js !== 'quantityInput' || quantityNotChanged || !isNum) {
     return;
   }
 

@@ -509,7 +509,7 @@
   const topMenu = document.querySelector('[data-js="topMenu"]');
   const topMenuChildren = document.querySelectorAll('[data-js="topMenu"] li');
 
-  burgerBtn.addEventListener('click', function (e) {
+  burgerBtn.addEventListener('click', e => {
     const headerHeight = document.querySelector('header').offsetHeight;
     topMenu.style.top = `${headerHeight}px`;
     let topMenuHeight = 0;
@@ -561,7 +561,7 @@
       let targetBottom = el.offsetHeight + targetPos;
 
       if ((scrollPos + headerHeight) >= (targetPos - 1) && (scrollPos + headerHeight) < targetBottom) {
-        scrollActiveEl.forEach(function (el) {
+        scrollActiveEl.forEach(el => {
           let targetNav = el.getAttribute('href');
           if (targetNav == `#${target}`) {
             el.dataset.scroll = 'active';
@@ -576,7 +576,7 @@
     const recommendationWall = document.querySelector('.recommendation-wall');
     recommendationWall.style.cursor = 'grab';
     let pos = { left: 0, x: 0 };
-    const mouseDownHandler = function (e) {
+    const mouseDownHandler = e => {
       recommendationWall.style.cursor = 'grabbing';
       recommendationWall.style.userSelect = 'none';
 
@@ -595,7 +595,7 @@
       // Scroll the element
       recommendationWall.scrollLeft = pos.left - dx;
     };
-    const mouseUpHandler = function () {
+    const mouseUpHandler = () => {
       recommendationWall.style.cursor = 'grab';
       recommendationWall.style.removeProperty('user-select');
 
