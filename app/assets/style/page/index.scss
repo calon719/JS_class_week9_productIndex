@@ -1,0 +1,49 @@
+.material-icons.text-4xl{
+  font-size: 2rem;
+}
+.material-icons.lg\:hidden{
+  @media lg {
+    @apply hidden;
+  }
+}
+.recommendation-wall::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.recommendation-card{
+  min-width: 350px;
+}
+.recommendation-card:not(:last-child){
+  margin-right: 30px;
+}
+
+
+// js 樣式
+[data-scroll="active"]{
+    @apply text-primary;
+}
+[data-topMenu-burger="show"]{
+  @apply text-primary;
+}
+[data-topMenu-burger="hidden"]{
+  @apply text-dark;
+}
+[data-loading="show"]{
+  @apply flex;
+}
+[data-loading="hidden"]{
+  @apply hidden;
+}
+[data-cartMsg="show"]{
+  @apply table;
+}
+[data-cartMsg="hidden"]{
+  @apply hidden;
+}
+[data-popUp="show"]{
+  @apply flex;
+}
+[data-popUp="hidden"]{
+  @apply hidden;
+}
