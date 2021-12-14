@@ -298,10 +298,10 @@
     </div>
   </section>
 
-  <section class="pt-8 pb-15" id="transport" data-js="scroll">
+  <section class="pt-8 pb-18" id="transport" data-js="scroll">
     <div class="container">
       <h3 class="text-3xl text-center mb-8">運送方式</h3>
-      <ul class="flex flex-col md:flex-row justify-center items-center mb-18">
+      <ul class="flex flex-col md:flex-row justify-center items-center">
         <li class="md:mr-8 lg:mr-12 flex flex-col md:flex-row items-center md:items-start">
           <div class="flex flex-col justify-center md:mr-8 lg:mr-12">
             <div class="flex justify-center items-center w-28 h-28 mb-3 border-3 rounded-full">
@@ -367,11 +367,15 @@
           </p>
         </li>
       </ul>
+  </section>
 
+  <section class="products pb-15">
+    <div class="container">
       <select
         class="w-full sm:w-1/2 md:w-5/12 lg:w-3/12 bg-white text-gray-400 border border-gray-200 rounded py-2 px-3 mb-8"
         name="categorySelector">
       </select>
+
       <div class="productList-loading justify-center w-full py-12" data-loading="show">
         <div class="lds-ring">
           <div></div>
@@ -411,9 +415,22 @@
               </tr>
             </thead>
             <tbody class="cartList text-lg"></tbody>
+            <tfoot>
+              <tr>
+                <td class="py-5">
+                  <button class="border rounded py-2 px-5 hover:bg-dark hover:text-white transition duration-500"
+                    data-js="deleteAllProductsBtn">刪除所有品項</button>
+                </td>
+                <td class="py-5"></td>
+                <td class="py-5"></td>
+                <td class="py-5">總金額</td>
+                <td class="py-5 text-3xl" data-js="cartTotal"></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
+    </div>
     </div>
   </section>
 

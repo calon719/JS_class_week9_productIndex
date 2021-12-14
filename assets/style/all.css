@@ -728,10 +728,6 @@ video {
   margin-bottom: 3rem;
 }
 
-.mb-18 {
-  margin-bottom: 4.5rem;
-}
-
 .ml-8 {
   margin-left: 2rem;
 }
@@ -1163,6 +1159,10 @@ video {
 
 .pb-16 {
   padding-bottom: 4rem;
+}
+
+.pb-18 {
+  padding-bottom: 4.5rem;
 }
 
 .pb-20 {

@@ -10,6 +10,7 @@ var customOrder_path = "api/livejs/v1/customer/".concat(api_path, "/orders"); //
 
 var categorySelector = document.querySelector('[name="categorySelector"]');
 var cartList = document.querySelector('.cartList');
+var deleteAllProductsBtn = document.querySelector('[data-js="deleteAllProductsBtn"]');
 var loadingFullScreenDiv = document.querySelector('[data-js="loading-fullScreen"]');
 var productList = document.querySelector('ul[data-js="productList"]');
 var sendOrderInfoBtn = document.querySelector('[data-js="sendOrderInfoBtn"'); // data
@@ -20,6 +21,7 @@ var productsData = []; // event
 categorySelector.addEventListener('change', productFilter);
 cartList.addEventListener('click', deleteCartProduct);
 cartList.addEventListener('change', changeQuantity);
+deleteAllProductsBtn.addEventListener('click', deleteAllProducts);
 productList.addEventListener('click', addCart);
 sendOrderInfoBtn.addEventListener('click', sendOrderInfo);
 init();
@@ -112,15 +114,17 @@ function getCartListData() {
 ;
 
 function renderCartList() {
-  var str = '';
+  var listStr = '';
   cartsData.carts.forEach(function (item) {
     var price = item.product.price.toLocaleString();
     var totalPrice = (item.product.price * item.quantity).toLocaleString();
-    str += "\n    <tr class=\"border-b border-gray-300\">\n      <td class=\"flex items-center py-5\">\n        <img class=\"w-20 h-20 object-cover mr-4\" src=\"".concat(item.product.images, "\" alt=\"\u7522\u54C1\u5716\u7247\">\n        <h5>").concat(item.product.title, "</h5>\n      </td>\n      <td class=\"py-5\">NT$").concat(price, "</td>\n      <td class=\"py-5\">\n        <input class=\"w-12 border border-gray-300 rounded px-2 text-center\" data-id=\"").concat(item.id, "\" data-js=\"quantityInput\" type=\"text\" value=\"").concat(item.quantity, "\">\n      </td>\n      <td class=\"py-5\">NT$").concat(totalPrice, "</td>\n      <td class=\"text-center py-5\">\n        <button class=\"material-icons hover:text-danger transition duration-500 p-2\" href=\"#\" data-js=\"deleteProductBtn\" data-id=\"").concat(item.id, "\">close</button>\n      </td>\n    </tr>\n    ");
+    listStr += "\n    <tr class=\"border-b border-gray-300\">\n      <td class=\"flex items-center py-5\">\n        <img class=\"w-20 h-20 object-cover mr-4\" src=\"".concat(item.product.images, "\" alt=\"\u7522\u54C1\u5716\u7247\">\n        <h5>").concat(item.product.title, "</h5>\n      </td>\n      <td class=\"py-5\">NT$").concat(price, "</td>\n      <td class=\"py-5\">\n        <input class=\"w-12 border border-gray-300 rounded px-2 text-center\" data-id=\"").concat(item.id, "\" data-js=\"quantityInput\" type=\"text\" value=\"").concat(item.quantity, "\">\n      </td>\n      <td class=\"py-5\">NT$").concat(totalPrice, "</td>\n      <td class=\"text-center py-5\">\n        <button class=\"material-icons hover:text-danger transition duration-500 p-2\" href=\"#\" data-js=\"deleteProductBtn\" data-id=\"").concat(item.id, "\">close</button>\n      </td>\n    </tr>\n    ");
   });
+  cartList.innerHTML = listStr;
+  var cartTotal = document.querySelector('[data-js="cartTotal"]');
   var finalTotal = cartsData.finalTotal.toLocaleString();
-  str += "\n    <tr>\n      <td class=\"py-5\">\n        <button class=\"border rounded py-2 px-5 hover:bg-dark hover:text-white transition duration-500\" data-js=\"deleteAllProductsBtn\">\u522A\u9664\u6240\u6709\u54C1\u9805</button>\n      </td>\n      <td class=\"py-5\"></td>\n      <td class=\"py-5\"></td>\n      <td class=\"py-5\">\u7E3D\u91D1\u984D</td>\n      <td class=\"py-5 text-3xl\">NT$".concat(finalTotal, "</td>\n    </tr>\n    ");
-  cartList.innerHTML = str;
+  var totalStr = "NT$".concat(finalTotal);
+  cartTotal.innerHTML = totalStr;
 }
 
 ;
@@ -178,54 +182,59 @@ function addCart(e) {
 ;
 
 function deleteCartProduct(e) {
-  if (e.target.dataset.js !== 'deleteProductBtn' && e.target.dataset.js !== 'deleteAllProductsBtn') {
+  var targetJS = e.target.dataset.js;
+
+  if (targetJS !== 'deleteProductBtn') {
     return;
-  } else if (e.target.dataset.js === 'deleteAllProductsBtn') {
-    // 刪除購物車全部商品
-    var popUp = document.querySelector('[data-js="doubleCheckpopUp"]');
-    popUp.setAttribute('data-popUp', 'show');
-    popUp.addEventListener('click', function (e) {
-      var btnProp = e.target.getAttribute('data-dblCheckBtn'); // double check
-
-      if (btnProp === 'cancel' || Object.is(popUp, e.target)) {
-        // 按取消或非訊息視窗時隱藏 double check div
-        popUp.setAttribute('data-popUp', 'hidden');
-      } else if (btnProp === 'delete') {
-        axios["delete"]("".concat(baseUrl, "/").concat(carts_path)).then(function (res) {
-          getCartListData();
-        })["catch"](function (err) {
-          var errData = err.response.data;
-
-          if (errData.status === false) {
-            console.log(err.response.data.message);
-          }
-
-          ;
-        }).then(function () {
-          popUp.setAttribute('data-popUp', 'hidden');
-        });
-      }
-
-      ;
-    });
-  } else {
-    // 刪除購物車單一商品
-    var id = e.target.dataset.id;
-    loadingFullScreenDiv.setAttribute('data-loading', 'show');
-    axios["delete"]("".concat(baseUrl, "/").concat(carts_path, "/").concat(id)).then(function (res) {
-      getCartListData();
-    })["catch"](function (err) {
-      var errData = err.response.data;
-
-      if (errData.status === false) {
-        console.log(err.response.data.message);
-      }
-    }).then(function () {
-      loadingFullScreenDiv.setAttribute('data-loading', 'hidden');
-    });
   }
 
   ;
+  console.log(0);
+  var id = e.target.dataset.id;
+  loadingFullScreenDiv.setAttribute('data-loading', 'show');
+  axios["delete"]("".concat(baseUrl, "/").concat(carts_path, "/").concat(id)).then(function (res) {
+    getCartListData();
+  })["catch"](function (err) {
+    var errData = err.response.data;
+
+    if (errData.status === false) {
+      console.log(err.response.data.message);
+    }
+  }).then(function () {
+    loadingFullScreenDiv.setAttribute('data-loading', 'hidden');
+  });
+}
+
+;
+
+function deleteAllProducts() {
+  // double check
+  var popUp = document.querySelector('[data-js="doubleCheckpopUp"]');
+  popUp.setAttribute('data-popUp', 'show');
+  popUp.addEventListener('click', function (e) {
+    var btnProp = e.target.getAttribute('data-dblCheckBtn');
+
+    if (btnProp === 'cancel' || Object.is(popUp, e.target)) {
+      // 按取消或非訊息視窗時隱藏 double check div
+      popUp.setAttribute('data-popUp', 'hidden');
+    } else if (btnProp === 'delete') {
+      axios["delete"]("".concat(baseUrl, "/").concat(carts_path)).then(function (res) {
+        getCartListData();
+      })["catch"](function (err) {
+        var errData = err.response.data;
+
+        if (errData.status === false) {
+          console.log(err.response.data.message);
+        }
+
+        ;
+      }).then(function () {
+        popUp.setAttribute('data-popUp', 'hidden');
+      });
+    }
+
+    ;
+  });
 }
 
 ;
@@ -363,7 +372,7 @@ function changeQuantity(e) {
   });
 }
 
-; // 加入購物車、訂單資料成功送出提示視窗
+; // 加入購物車、訂單資料送出提示視窗
 
 function popUpSuccessMsg(btnProp) {
   var popUpMsg = document.querySelector('[data-js="popUpMsg"]');
