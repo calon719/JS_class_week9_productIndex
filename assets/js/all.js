@@ -36,7 +36,7 @@ function getProductsData() {
   axios.get("".concat(baseUrl, "/").concat(product_path)).then(function (res) {
     productsData = res.data.products;
     renderCategorySelector();
-    getCartListData(); // 先跑購物車資料 後面渲染 productList 需要購物車資料
+    getCartListData();
   })["catch"](function (err) {
     var errData = err.response.data;
 
@@ -87,18 +87,9 @@ function renderProductList(data) {
 function getCartListData() {
   axios.get("".concat(baseUrl, "/").concat(carts_path)).then(function (res) {
     cartsData = res.data;
-    productFilter();
-    var cartMsg = document.querySelector('p[data-js="cartMsg"]');
-    var cartTable = document.querySelector('table[data-js="cartMsg"]');
+    renderProductList(productsData); // 需要用到購物車資料，所以要等拿到購物車資料再做產品列表渲染
 
-    if (cartsData.carts.length === 0) {
-      cartMsg.setAttribute('data-cartMsg', 'show');
-      cartTable.setAttribute('data-cartMsg', 'hidden');
-    } else {
-      cartMsg.setAttribute('data-cartMsg', 'hidden');
-      cartTable.setAttribute('data-cartMsg', 'show');
-      renderCartList();
-    }
+    renderCartList();
   })["catch"](function (err) {
     var errData = err.response.data;
 
@@ -114,17 +105,29 @@ function getCartListData() {
 ;
 
 function renderCartList() {
-  var listStr = '';
-  cartsData.carts.forEach(function (item) {
-    var price = item.product.price.toLocaleString();
-    var totalPrice = (item.product.price * item.quantity).toLocaleString();
-    listStr += "\n    <tr class=\"border-b border-gray-300\">\n      <td class=\"flex items-center py-5\">\n        <img class=\"w-20 h-20 object-cover mr-4\" src=\"".concat(item.product.images, "\" alt=\"\u7522\u54C1\u5716\u7247\">\n        <h5>").concat(item.product.title, "</h5>\n      </td>\n      <td class=\"py-5\">NT$").concat(price, "</td>\n      <td class=\"py-5\">\n        <input class=\"w-12 border border-gray-300 rounded px-2 text-center\" data-id=\"").concat(item.id, "\" data-js=\"quantityInput\" type=\"text\" value=\"").concat(item.quantity, "\">\n      </td>\n      <td class=\"py-5\">NT$").concat(totalPrice, "</td>\n      <td class=\"text-center py-5\">\n        <button class=\"material-icons hover:text-danger transition duration-500 p-2\" href=\"#\" data-js=\"deleteProductBtn\" data-id=\"").concat(item.id, "\">close</button>\n      </td>\n    </tr>\n    ");
-  });
-  cartList.innerHTML = listStr;
-  var cartTotal = document.querySelector('[data-js="cartTotal"]');
-  var finalTotal = cartsData.finalTotal.toLocaleString();
-  var totalStr = "NT$".concat(finalTotal);
-  cartTotal.innerHTML = totalStr;
+  // 沒有商品在購物車時，隱藏 table，有的時候渲染 cartList
+  var cartMsg = document.querySelector('p[data-js="cartMsg"]');
+  var cartTable = document.querySelector('table[data-js="cartMsg"]');
+
+  if (cartsData.carts.length === 0) {
+    cartMsg.setAttribute('data-cartMsg', 'show');
+    cartTable.setAttribute('data-cartMsg', 'hidden');
+  } else {
+    cartMsg.setAttribute('data-cartMsg', 'hidden');
+    cartTable.setAttribute('data-cartMsg', 'show');
+    var listStr = '';
+    cartsData.carts.forEach(function (item) {
+      var price = item.product.price.toLocaleString();
+      var totalPrice = (item.product.price * item.quantity).toLocaleString();
+      listStr += "\n      <tr class=\"border-b border-gray-300\">\n        <td class=\"flex items-center py-5\">\n          <img class=\"w-20 h-20 object-cover mr-4\" src=\"".concat(item.product.images, "\" alt=\"\u7522\u54C1\u5716\u7247\">\n          <h5>").concat(item.product.title, "</h5>\n        </td>\n        <td class=\"py-5\">NT$").concat(price, "</td>\n        <td class=\"py-5\">\n          <input class=\"w-12 border border-gray-300 rounded px-2 text-center\" data-id=\"").concat(item.id, "\" data-js=\"quantityInput\" type=\"text\" value=\"").concat(item.quantity, "\">\n        </td>\n        <td class=\"py-5\">NT$").concat(totalPrice, "</td>\n        <td class=\"text-center py-5\">\n          <button class=\"material-icons hover:text-danger transition duration-500 p-2\" href=\"#\" data-js=\"deleteProductBtn\" data-id=\"").concat(item.id, "\">close</button>\n        </td>\n      </tr>\n      ");
+    });
+    cartList.innerHTML = listStr;
+    var cartTotal = document.querySelector('[data-js="cartTotal"]');
+    var finalTotal = cartsData.finalTotal.toLocaleString();
+    cartTotal.textContent = "NT$".concat(finalTotal);
+  }
+
+  ;
 }
 
 ;
@@ -162,7 +165,8 @@ function addCart(e) {
   };
   loadingFullScreenDiv.setAttribute('data-loading', 'show');
   axios.post("".concat(baseUrl, "/").concat(carts_path), obj).then(function (res) {
-    getCartListData();
+    cartsData = res.data;
+    renderCartList();
     productFilter(); // 不呼叫 renderProductList() 避免已篩選渲染的 product list 出錯
 
     popUpSuccessMsg(btnProp);
@@ -189,11 +193,12 @@ function deleteCartProduct(e) {
   }
 
   ;
-  console.log(0);
   var id = e.target.dataset.id;
   loadingFullScreenDiv.setAttribute('data-loading', 'show');
   axios["delete"]("".concat(baseUrl, "/").concat(carts_path, "/").concat(id)).then(function (res) {
-    getCartListData();
+    cartsData = res.data;
+    renderCartList();
+    productFilter(); // 不呼叫 renderProductList() 避免已篩選渲染的 product list 出錯
   })["catch"](function (err) {
     var errData = err.response.data;
 
@@ -219,7 +224,9 @@ function deleteAllProducts() {
       popUp.setAttribute('data-popUp', 'hidden');
     } else if (btnProp === 'delete') {
       axios["delete"]("".concat(baseUrl, "/").concat(carts_path)).then(function (res) {
-        getCartListData();
+        cartsData = res.data;
+        renderCartList();
+        productFilter();
       })["catch"](function (err) {
         var errData = err.response.data;
 
@@ -343,9 +350,9 @@ function changeQuantity(e) {
   })[0];
   var quantityNotChanged = product.quantity == value; // 判斷數量有沒有改變
 
-  var isNum = value.match(/[0-9]/); // 除了數字以外的字會回傳陣列
+  var isNum = value.match(/[1-9]/); // 除了數字以外的字會回傳陣列
 
-  if (e.target.dataset.js !== 'quantityInput' || quantityNotChanged || !isNum) {
+  if (e.target.dataset.js !== 'quantityInput' || quantityNotChanged || !isNum || value < 0) {
     return;
   }
 
@@ -358,7 +365,8 @@ function changeQuantity(e) {
   };
   loadingFullScreenDiv.setAttribute('data-loading', 'show');
   axios.patch("".concat(baseUrl, "/").concat(carts_path), obj).then(function (res) {
-    getCartListData();
+    cartsData = res.data;
+    renderCartList();
   })["catch"](function (err) {
     var errData = err.response.data;
 
