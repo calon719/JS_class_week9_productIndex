@@ -87,7 +87,7 @@ function renderProductList(data) {
 function getCartListData() {
   axios.get("".concat(baseUrl, "/").concat(carts_path)).then(function (res) {
     cartsData = res.data;
-    renderProductList(productsData); // 需要用到購物車資料，所以要等拿到購物車資料再做產品列表渲染
+    productFilter(); // 需要用到購物車資料，所以要等拿到購物車資料再做產品列表渲染
 
     renderCartList();
   })["catch"](function (err) {
